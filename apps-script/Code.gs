@@ -8,6 +8,7 @@
  *   REMITENTE       (opcional) nombre que ve el papá, por defecto "NEXT"
  *   RESPONDER_A     (opcional) correo al que llegan las respuestas
  *   ENVIAR_CORREO   (opcional) pon "no" para pausar los correos sin tocar el código
+ *   LOGO_URL        (recomendada) https://TU-DOMINIO/brand/logo-next-email.png
  */
 var SHEET_NAME = 'Leads';
 var HEADERS = [
@@ -82,7 +83,7 @@ function sendResultEmail(d, props) {
   var opts = {
     to: d.to,
     subject: SUBJECTS[d.key] || ('Resultado del diagnóstico: ' + d.title),
-    htmlBody: buildEmailHtml(d),
+    htmlBody: buildEmailHtml(Object.assign({}, d, { logoUrl: props.getProperty('LOGO_URL') || d.logoUrl || '' })),
     body: buildEmailText(d),
     name: props.getProperty('REMITENTE') || 'NEXT'
   };
@@ -229,7 +230,7 @@ function probarCorreo() {
     to: to, name: 'Prueba', key: 'scroll', title: 'Scroll infinito', emoji: '🌀', health: 42,
     text: 'El celular está marcando el ritmo de su día. Le cuesta sostener la atención, se aburre rápido y probablemente duerme menos de lo que necesita.',
     steps: ['Paso uno de prueba.', 'Paso dos de prueba.', 'Paso tres de prueba.'],
-    invite: 'community', communityUrl: 'https://example.com', logoUrl: ''
+    invite: 'community', communityUrl: 'https://example.com'
   }, PropertiesService.getScriptProperties());
   Logger.log('Correo de prueba enviado a ' + to);
 }
