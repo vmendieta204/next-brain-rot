@@ -1,4 +1,4 @@
-# Diagnóstico Brain Rot · NEXT
+# Test brain rot para padres · NEXT
 
 Landing del lead magnet para papás: quiz de 14 preguntas con cerebro 3D, formulario y resultado filtrado por perfil. Cada lead se guarda como una fila en Google Sheets y recibe su resultado por correo.
 
@@ -9,7 +9,10 @@ Landing del lead magnet para papás: quiz de 14 preguntas con cerebro 3D, formul
 - `lib/scoring.js`: pesos, diagnósticos, plan de 3 pasos por diagnóstico y reglas de segmento. Es el único lugar donde se cambian.
 - `apps-script/Code.gs`: el script que va dentro de la hoja de Google: escribe cada lead y le manda el correo con el resultado.
 - `brand/logo-next-email.png`: logo que usa el correo.
-- `brain-mesh.js`: malla real de la corteza cerebral (plantilla fsaverage5 de FreeSurfer).
+- `brain-mesh.js`: malla real de la corteza cerebral (plantilla fsaverage5 de FreeSurfer). Se carga después de mostrar la página.
+- `vendor/three.min.js`: three.js r128 servido desde el propio dominio.
+- `brand/brain-still.webp`: imagen fija del cerebro que se ve al instante mientras carga el 3D.
+- `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`: íconos de NEXT.
 - `test.mjs`: pruebas del scoring (`npm test`).
 
 ## Conectar Google Sheets
@@ -43,9 +46,16 @@ La columna "Correo enviado" dice Sí, Pausado o el error.
 
 Si la hoja no responde o la clave no coincide, el papá ve "No pudimos enviar tus datos" y puede reintentar; el lead no se pierde en silencio. El error queda en los logs de la función.
 
+## Ajustes rápidos
+
+- Política de tratamiento de datos en la landing: en `index.html`, buscar `var POLICY_URL = '';` y poner la URL entre las comillas.
+- Política en el correo: propiedad `POLITICA_URL` en Apps Script.
+- Bloque "Qué sigue" (WhatsApp): en `index.html`, `var SHOW_WHATSAPP_NEXT = false;` y en Apps Script la propiedad `MOSTRAR_QUE_SIGUE`. Activar solo cuando el envío por WhatsApp funcione.
+- Bajas: el enlace del correo agrega el correo a la pestaña "Bajas" y ya no se le envía nada.
+
 ## Columnas de la hoja
 
-Fecha · Nombre · Correo · WhatsApp · Diagnóstico · Salud cerebral · Perfil · Segmento · Invitación · Q1 a Q14 · UTM · Página.
+Fecha · Nombre · Correo · WhatsApp · Nivel · Salud cerebral · Puntaje oculto · Segmento · Invitación · Q1 a Q14 · UTM · Página · Correo enviado · Pausa (errores).
 
 ## Segmentos
 
