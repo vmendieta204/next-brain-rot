@@ -167,11 +167,6 @@ var SOURCES = [
   ['AASM, sueño en adolescentes', 'https://aasm.org/resources/pdf/pressroom/teen-sleep-duration-recommendation.pdf'],
   ['AEP, Plan Digital Familiar (2024)', 'https://aeped.es/sites/default/files/20241205_ndp_aep_actualizacion_plan_digital_familiar_def.pdf']
 ];
-var RETOS = [
-  ['Reto 1 · Primero usted', 'Miércoles 18 de noviembre', 'Muestre su propio tiempo de pantalla antes de pedirle el suyo a su hijo.'],
-  ['Reto 2 · Silencio y algoritmo', 'Jueves 19', 'Desactiven juntos las notificaciones de las aplicaciones que no son de personas.'],
-  ['Reto 3 · La canasta y la pregunta', 'Viernes 20', 'Una comida con todos los celulares fuera de la mesa.']
-];
 var INSTAGRAM = 'https://www.instagram.com/next.fellowship/';
 
 function esc(s) {
@@ -206,16 +201,10 @@ function buildEmailHtml(d) {
 
   var closing;
   if (isA) {
-    var retos = RETOS.map(function (r) {
-      return '<tr><td style="padding:7px 0;font-family:' + FONT + ';font-size:14px;line-height:1.45;color:#E4E4F2">' +
-        '<span style="display:inline-block;font-family:' + MONO + ';font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#fff;background:' + C.lavanda + ';padding:4px 8px;border-radius:6px;margin:0 10px 4px 0">' + esc(r[0]) + '</span><br>' +
-        '<span style="color:#A9AFD6">' + esc(r[1]) + '.</span> ' + esc(r[2]) + '</td></tr>';
-    }).join('');
     closing = '<td style="background:' + C.dark + ';border-radius:18px;padding:26px">' +
       '<div style="font-family:' + MONO + ';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A9AFD6">Lista VIP de padres NEXT</div>' +
       '<div style="font-family:' + FONT + ';font-size:22px;font-weight:800;color:#fff;margin:8px 0 10px;letter-spacing:-.3px">Únase a la Lista VIP de padres NEXT</div>' +
-      '<div style="font-family:' + FONT + ';font-size:15px;line-height:1.55;color:#C9CCE4">Del 18 al 25 de noviembre, Andrés Bilbao, fundador de NEXT y cofundador de Rappi, compartirá cada día un reto breve para hacer en casa con su hijo. Cada reto toma entre 5 y 10 minutos. El martes 24 de noviembre, los miembros de la Lista VIP tendrán acceso anticipado a la oferta de Black Friday.</div>' +
-      '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px">' + retos + '</table>' +
+      '<div style="font-family:' + FONT + ';font-size:15px;line-height:1.55;color:#C9CCE4">En la Lista VIP, Andrés Bilbao, fundador de NEXT y cofundador de Rappi, compartirá retos breves para hacer en casa con su hijo y mejorar sus hábitos con el celular. Los miembros también tendrán acceso anticipado a la oferta de Black Friday.</div>' +
       button('Unirme a la Lista VIP', d.communityUrl) + '</td>';
   } else {
     closing = '<td style="background:' + C.card + ';border:1px solid ' + C.hair + ';border-radius:18px;padding:26px">' +
@@ -281,7 +270,7 @@ function buildEmailText(d) {
   (d.steps || []).forEach(function (s, i) { var p = stepParts(s); lines.push((i + 1) + '. ' + (p[0] ? p[0] + ' ' : '') + p[1]); });
   lines.push('');
   if (isA) {
-    lines.push('Únase a la Lista VIP de padres NEXT. Del 18 al 25 de noviembre, Andrés Bilbao, fundador de NEXT y cofundador de Rappi, compartirá cada día un reto breve para hacer en casa con su hijo. El martes 24 de noviembre, la Lista VIP tendrá acceso anticipado a la oferta de Black Friday: ' + d.communityUrl);
+    lines.push('Únase a la Lista VIP de padres NEXT. Allí, Andrés Bilbao, fundador de NEXT y cofundador de Rappi, compartirá retos breves para hacer en casa con su hijo y mejorar sus hábitos con el celular. Los miembros también tendrán acceso anticipado a la oferta de Black Friday. Entre aquí: ' + d.communityUrl);
   } else {
     lines.push('Siga a NEXT en Instagram: ' + INSTAGRAM);
   }
