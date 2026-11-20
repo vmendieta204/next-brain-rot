@@ -28,8 +28,10 @@ export default async function handler(req, res) {
   let result;
   try { result = score(answers); } catch { return res.status(400).json({ error: 'Faltan respuestas del quiz' }); }
 
-  const { COMMUNITY_URL } = process.env;
-  const invite = result.tier === 'A' && COMMUNITY_URL ? 'community' : 'instagram';
+  // Ya no hay Lista VIP: todos ven su resultado y la invitación a Instagram.
+  // El segmento se sigue calculando y se guarda en la hoja para el email marketing interno.
+  const COMMUNITY_URL = null;
+  const invite = 'instagram';
   const utm = context && typeof context.utm === 'object' && context.utm ? context.utm : {};
 
   const host = String(req.headers?.host || '').replace(/[^a-zA-Z0-9.:-]/g, '');
